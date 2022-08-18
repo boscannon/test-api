@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -13,9 +12,22 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Post::search(request()->q)->paginate(2);
+        $rules = [            
+            'query' => ['nullable', 'string'],
+            'page' => ['nullable', 'numeric'],
+            'per_page' => ['nullable', 'numeric'],       
+        ];
+
+        $messages = [];
+
+        $attributes = [];
+
+        $validatedData = $request->validate($rules, $messages, $attributes);
+
+        return Post::search($validatedData['query'] ?? '')
+        ->paginate($validatedData['per_page'] ?? 15);
     }
 
     /**
@@ -34,7 +46,7 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -47,7 +59,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return response()->json($post);
     }
 
     /**
@@ -68,7 +80,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
         //
     }
