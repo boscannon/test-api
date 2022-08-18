@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\posts;
-use App\Http\Requests\StorepostsRequest;
-use App\Http\Requests\UpdatepostsRequest;
+use App\Models\Post;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 
-class PostsController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return Post::search(request()->q)->paginate(2);
     }
 
     /**
@@ -31,10 +31,10 @@ class PostsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorepostsRequest  $request
+     * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorepostsRequest $request)
+    public function store(StorePostRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\posts  $posts
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(posts $posts)
+    public function show(Post $post)
     {
         //
     }
@@ -53,10 +53,10 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\posts  $posts
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(posts $posts)
+    public function edit(Post $post)
     {
         //
     }
@@ -64,11 +64,11 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatepostsRequest  $request
-     * @param  \App\Models\posts  $posts
+     * @param  \App\Http\Requests\UpdatePostRequest  $request
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatepostsRequest $request, posts $posts)
+    public function update(UpdatePostRequest $request, Post $post)
     {
         //
     }
@@ -76,10 +76,10 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\posts  $posts
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(posts $posts)
+    public function destroy(Post $post)
     {
         //
     }
