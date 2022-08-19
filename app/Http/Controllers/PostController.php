@@ -48,7 +48,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create($request->all());
+        return [ 'message' => '新增成功' ];
     }
 
     /**
@@ -82,7 +83,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update($request->all());
+        return [ 'message' => '修改成功' ];
     }
 
     /**
