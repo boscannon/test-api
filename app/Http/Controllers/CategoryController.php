@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category as CurdModel;
+use App\Models\Category as CrudModel;
 
 class CategoryController extends Controller
 {
@@ -23,7 +23,7 @@ class CategoryController extends Controller
 
 		$validatedData = $request->validate($rules, self::$messages, self::$attributes);
 
-		return CurdModel::search($validatedData['query'] ?? '')
+		return CrudModel::search($validatedData['query'] ?? '')
 			->paginate($validatedData['per_page'] ?? 15);
 	}
 
@@ -31,7 +31,7 @@ class CategoryController extends Controller
 	{
 		$validatedData = $request->validate(self::$rules, self::$messages, self::$attributes);
 		try {
-			CurdModel::create($validatedData);
+			CrudModel::create($validatedData);
 			return Response()->json(['message' => __('Store Success')]);
 		} catch(\Exception $e) {
 			return Response()->json(['message' => $e->getMessage()], 422);
