@@ -23,3 +23,4 @@ Route::post('login', [Controllers\Authcontroller::class, 'login']);
 
 Route::apiResource('post', Controllers\PostController::class);
 Route::apiResource('category', Controllers\CategoryController::class);
+Route::apiResource('product', Controllers\ProductController::class);
