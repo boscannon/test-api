@@ -18,6 +18,8 @@ class PostController extends Controller
             'query' => ['nullable', 'string'],
             'page' => ['nullable', 'numeric'],
             'per_page' => ['nullable', 'numeric'],       
+            'sort' => ['nullable', 'string'],       
+            'sort_by' => ['nullable', 'string'],       
         ];
 
         $messages = [];
@@ -26,8 +28,12 @@ class PostController extends Controller
 
         $validatedData = $request->validate($rules, $messages, $attributes);
 
-        return Post::search($validatedData['query'] ?? '')
-        ->paginate($validatedData['per_page'] ?? 15);
+        $instance = $validatedData['query'] ? 
+          Post::search($validatedData['query'] ?? '') : 
+          Post::query();
+
+        return $instance->orderBy($validatedData['sort'] ?? 'created_at', $validatedData['sort_by'] ?? 'desc')
+          ->paginate($validatedData['per_page'] ?? 15);
     }
 
     /**
