@@ -37,4 +37,35 @@ class CategoryController extends Controller
 			return Response()->json(['message' => $e->getMessage()], 422);
 		}
 	}
+	
+	public function show($id)
+	{
+		$data = CrudModel::findOrFail($id);
+		return $data;
+	}
+
+	public function update(Request $request, $id)
+	{
+		$validateData = $request->validate(self::$rules, self::$messages, self::$attributes);
+
+		try {
+			$data = CrudModel::findOrFail($id);
+			$data->update($validateData);
+			return Response()->json(['message' => __('Update Success')]);
+		} catch (\Exception $e) {
+			return Response()->json(['message' => $e->getMessage()], 422);
+		}
+
+	}	
+
+	public function destroy($id)
+	{
+		try {
+			$data = CrudModel::findOrFail($id);
+			$data->delete();
+			return Response()->json(['message' => __('Delete Success')]);
+		} catch (\Exception $e) {
+			return Response()->json(['message' => $e->getMessage()], 422);
+		}
+	}
 }
