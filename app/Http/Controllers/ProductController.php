@@ -36,4 +36,34 @@ class ProductController extends Controller
 			return Response()->json(['message' => $e->getMessage()], 422);
 		}
 	}
+	public function show($id)
+	{
+		$data = CrudModel::findOrFail($id);
+		return $data;
+	}	
+
+	public function update($id, Request $request)
+	{
+		$validatedata = $request->validate(self::$rules, self::$message, self::$attributes);
+		try{
+			$data = CrudModel::findOrFail($id);
+			$data->update($validatedata);
+			return Response()->json(['message' => __('Update Success')]);	
+		} catch(\Exception $e) {
+			return Response()->json(['message' => $e->getMessage()], 422);
+		}
+	}
+		
+	public function destroy($id)
+	{
+		try{
+			$data = CrudModel::findOrFail($id);
+			$data->delete();
+			return Response()->json(['message' => __('Delete Success')]);	
+		} catch(\Exception $e) {
+			return Response()->json(['message' => $e->getMessage()], 422);
+		}
+	}
+		
+
 }
