@@ -39,7 +39,7 @@ class ProductController extends Controller
 	public function show($id)
 	{
 		$data = CrudModel::findOrFail($id);
-		return $data;
+		return Response()->json($data);
 	}	
 
 	public function update($id, Request $request)
