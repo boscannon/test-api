@@ -28,11 +28,7 @@ class PostController extends Controller
 
         $validatedData = $request->validate($rules, $messages, $attributes);
 
-        $instance = $validatedData['query'] ? 
-          Post::search($validatedData['query'] ?? '') : 
-          Post::query();
-
-        return $instance->orderBy($validatedData['sort'] ?? 'created_at', $validatedData['sort_by'] ?? 'desc')
+        return Post::search($validatedData['query'] ?? '')->orderBy($validatedData['sort'] ?? 'created_at', $validatedData['sort_by'] ?? 'desc')
           ->paginate($validatedData['per_page'] ?? 15);
     }
 
@@ -101,7 +97,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-				$post->delete();
-				return response()->json([ 'message' => '刪除成功' ]);
+        //
     }
 }
