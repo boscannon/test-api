@@ -18,12 +18,15 @@ class ProductController extends Controller
 		$rules = [
 			'query' => ['nullable', 'string'],
 			'page' => ['nullable', 'numeric'],
-			'per_page' => ['nullable', 'numeric']
+			'per_page' => ['nullable', 'numeric'],
+			'sort' => ['nullable', 'string'],       
+			'sort_by' => ['nullable', 'string'],     			
 		];
 
 		$validateData = $request->validate($rules, self::$message, self::$attributes);	
 		return CrudModel::search($validateData['query'] ?? '')
-			->paginate($validateData['per_page'] ?? 15);
+			->orderBy($validatedData['sort'] ?? 'created_at', $this->sortBy($validatedData))
+			->paginate($validatedData['per_page'] ?? 15);
 	}
 
 	public function store(Request $request)

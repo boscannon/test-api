@@ -18,12 +18,15 @@ class CategoryController extends Controller
 		$rules = [            
 			'query' => ['nullable', 'string'],
 			'page' => ['nullable', 'numeric'],
-			'per_page' => ['nullable', 'numeric'],       
+			'per_page' => ['nullable', 'numeric'],     
+			'sort' => ['nullable', 'string'],       
+			'sort_by' => ['nullable', 'string'],   			  
 		];
 
 		$validatedData = $request->validate($rules, self::$messages, self::$attributes);
 
 		return CrudModel::search($validatedData['query'] ?? '')
+			->orderBy($validatedData['sort'] ?? 'created_at', $this->sortBy($validatedData))
 			->paginate($validatedData['per_page'] ?? 15);
 	}
 
