@@ -28,8 +28,9 @@ class PostController extends Controller
 
         $validatedData = $request->validate($rules, $messages, $attributes);
 
-        return Post::search($validatedData['query'] ?? '')->orderBy($validatedData['sort'] ?? 'created_at', $validatedData['sort_by'] ?? 'desc')
-          ->paginate($validatedData['per_page'] ?? 15);
+        return Post::search($validatedData['query'] ?? '')
+            ->orderBy($validatedData['sort'] ?? 'created_at', $this->sortBy($validatedData))
+            ->paginate($validatedData['per_page'] ?? 15);
     }
 
     /**

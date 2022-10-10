@@ -134,12 +134,12 @@ return [
         'key' => env('MEILISEARCH_KEY', null),
     ],
     'mysql' => [
-      'mode' => 'LIKE_EXPANDED',
-      'model_directories' => [app_path()],
-      'min_search_length' => 0,
-      'min_fulltext_search_length' => 4,
-      'min_fulltext_search_fallback' => 'LIKE_EXPANDED',
-      'query_expansion' => false
+        'mode' => 'LIKE_EXPANDED',
+        'model_directories' => [app_path()],
+        'min_search_length' => 0,
+        'min_fulltext_search_length' => 4,
+        'min_fulltext_search_fallback' => 'LIKE_EXPANDED',
+        'query_expansion' => false
     ]
 
 ];
