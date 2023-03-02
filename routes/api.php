@@ -21,6 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [Controllers\Authcontroller::class, 'login']);
 
-Route::apiResource('post', Controllers\PostController::class);
-Route::apiResource('category', Controllers\CategoryController::class);
-Route::apiResource('product', Controllers\ProductController::class);
+Route::apiResource('post', Controllers\Backend\PostController::class);
+Route::apiResource('category', Controllers\Backend\CategoryController::class);
+Route::apiResource('product', Controllers\Backend\ProductController::class);
+
+//操作紀錄
+Route::resource('/audits', Controllers\Backend\AuditController::class)->only(['index']);

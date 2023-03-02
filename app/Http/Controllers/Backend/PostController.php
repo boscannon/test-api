@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         Post::create($request->all());
-        return [ 'message' => '新增成功' ];
+        return ['message' => __('backend/message.Success', ['action' => __('backend/message.Create')])];
     }
 
     /**
@@ -87,7 +88,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $post->update($request->all());
-        return [ 'message' => '修改成功' ];
+        return ['message' => __('backend/message.Success', ['action' => __('backend/message.Edit')])];
     }
 
     /**
@@ -98,7 +99,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-        return [ 'message' => '刪除成功' ];
+        $post->delete();        
+        return ['message' => __('backend/message.Success', ['action' => __('backend/message.Delete')])];
     }
 }
